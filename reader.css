@@ -67,8 +67,8 @@
   --r-size: 17px;
   --r-code-size: 14px;
   --r-leading: 1.6;
-  --r-measure: 64ch; /* paper */
-  --r-measure-wide: calc(var(--r-size) * 39.5); /* column prose: ≈72ch of Roboto */
+  --r-measure: 72ch; /* column */
+  --r-measure-paper: 64ch;
   /* Code blocks are dark in both modes. One Dark Pro. */
   --hl-fg: #abb2bf;
   --hl-comment: #7f848e;
@@ -149,39 +149,13 @@ html .markdown-body {
   padding: 3rem 1.75rem 6rem;
 }
 
-/*
- * Column: prose stays at reading width; tables, code and diagrams grow to the pane
- * when their content needs it. The width is in px terms (72ch of the body font)
- * because `ch` on a heading would resolve against the heading's own font.
- */
-html:not(:has(.md-reader-state[data-layout="paper"])) .markdown-body {
-  max-width: none;
-  padding: 3rem 2.5rem 6rem;
-}
-
-html:not(:has(.md-reader-state[data-layout="paper"])) .markdown-body > * {
-  box-sizing: border-box;
-  max-width: var(--r-measure-wide);
-  margin-left: auto;
-  margin-right: auto;
-}
-
-html:not(:has(.md-reader-state[data-layout="paper"])) .markdown-body > .md-reader-table {
-  width: fit-content;
-  min-width: min(var(--r-measure-wide), 100%);
-  max-width: 100%;
-}
-
-html:not(:has(.md-reader-state[data-layout="paper"])) .markdown-body > :is(pre, .mermaid-wrapper, .mermaid) {
-  max-width: none;
-}
-
 /* Paper: a card on a darker surround. */
 html:has(.md-reader-state[data-layout="paper"]) {
   background: var(--r-surround);
 }
 
 html:has(.md-reader-state[data-layout="paper"]) .markdown-body {
+  max-width: var(--r-measure-paper);
   background: var(--r-paper);
   margin: 2.5rem auto 4rem;
   padding: 3.5rem 4rem 4.5rem;
