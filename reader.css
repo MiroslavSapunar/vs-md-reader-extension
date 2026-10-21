@@ -1,0 +1,469 @@
+/*
+ * Markdown Reader: styles for VS Code's built-in Markdown preview.
+ *
+ * Mode: tokens follow the VS Code theme (body.vscode-dark / vscode-light) unless
+ * extension.js marks a forced mode on .md-reader-state[data-mode]. Layout works the
+ * same way via [data-layout]. Rules are prefixed with `html` so they beat the
+ * built-in markdown.css / highlight.css regardless of stylesheet order.
+ */
+
+/* ---------- Fonts (bundled, OFL 1.1, see fonts/OFL-*.txt) ---------- */
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("fonts/roboto-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("fonts/roboto-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("fonts/roboto-italic-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("fonts/roboto-italic-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("fonts/montserrat-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("fonts/montserrat-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* ---------- Tokens ---------- */
+
+:root {
+  --r-sans: "Roboto", system-ui, -apple-system, sans-serif;
+  --r-display: "Montserrat", var(--r-sans);
+  --r-mono: Menlo, "SF Mono", Monaco, monospace;
+  --r-size: 17px;
+  --r-code-size: 14px;
+  --r-leading: 1.6;
+  --r-measure: 64ch; /* paper */
+  --r-measure-wide: calc(var(--r-size) * 39.5); /* column prose: ≈72ch of Roboto */
+  /* Code blocks are dark in both modes. One Dark Pro. */
+  --hl-fg: #abb2bf;
+  --hl-comment: #7f848e;
+  --hl-keyword: #c678dd;
+  --hl-red: #e06c75;
+  --hl-cyan: #56b6c2;
+  --hl-green: #98c379;
+  --hl-orange: #d19a66;
+  --hl-blue: #61afef;
+  --hl-yellow: #e6c07b;
+}
+
+/* Light: default, and forced light. */
+:root,
+html:has(.md-reader-state[data-mode="light"]) {
+  color-scheme: light;
+  --r-paper: #fbfaf7;
+  --r-surround: #e6e3dd;
+  --r-ink: #222326;
+  --r-ink-muted: #5d6067;
+  --r-heading: #16171a;
+  --r-weight: 400;
+  --r-rule: rgba(0, 0, 0, 0.12);
+  --r-rule-strong: rgba(0, 0, 0, 0.28);
+  --r-link: #1f5fbf;
+  --r-code-bg: #23272e;
+  --r-code-border: rgba(0, 0, 0, 0.2);
+  --r-inline-code-bg: rgba(0, 0, 0, 0.055);
+  --r-zebra: rgba(0, 0, 0, 0.028);
+  --r-quote-rule: #cdc8be;
+  --r-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Dark: VS Code dark theme (unless forced light), and forced dark. */
+html:has(body:is(.vscode-dark, .vscode-high-contrast:not(.vscode-high-contrast-light))):not(:has(.md-reader-state[data-mode="light"])),
+html:has(.md-reader-state[data-mode="dark"]) {
+  color-scheme: dark;
+  --r-paper: #202124;
+  --r-surround: #161719;
+  --r-ink: #e3e3df;
+  --r-ink-muted: #a4a59f;
+  --r-heading: #f1f1ed;
+  --r-weight: 430;
+  --r-rule: rgba(255, 255, 255, 0.12);
+  --r-rule-strong: rgba(255, 255, 255, 0.26);
+  --r-link: #82b1ff;
+  --r-code-bg: #1a1b1e;
+  --r-code-border: rgba(255, 255, 255, 0.08);
+  --r-inline-code-bg: rgba(255, 255, 255, 0.075);
+  --r-zebra: rgba(255, 255, 255, 0.03);
+  --r-quote-rule: #4a4c52;
+  --r-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* ---------- Page and layout ---------- */
+
+html:root {
+  background: var(--r-paper);
+  padding: 0;
+}
+
+html body {
+  background: transparent;
+  color: var(--r-ink);
+  padding: 0;
+  font-family: var(--r-sans);
+  font-size: var(--r-size);
+  line-height: var(--r-leading);
+  font-weight: var(--r-weight);
+  font-kerning: normal;
+  text-rendering: optimizeLegibility;
+}
+
+html .markdown-body {
+  box-sizing: content-box;
+  max-width: var(--r-measure);
+  margin: 0 auto;
+  padding: 3rem 1.75rem 6rem;
+}
+
+/*
+ * Column: prose stays at reading width; tables, code and diagrams grow to the pane
+ * when their content needs it. The width is in px terms (72ch of the body font)
+ * because `ch` on a heading would resolve against the heading's own font.
+ */
+html:not(:has(.md-reader-state[data-layout="paper"])) .markdown-body {
+  max-width: none;
+  padding: 3rem 2.5rem 6rem;
+}
+
+html:not(:has(.md-reader-state[data-layout="paper"])) .markdown-body > * {
+  box-sizing: border-box;
+  max-width: var(--r-measure-wide);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+html:not(:has(.md-reader-state[data-layout="paper"])) .markdown-body > .md-reader-table {
+  width: fit-content;
+  min-width: min(var(--r-measure-wide), 100%);
+  max-width: 100%;
+}
+
+html:not(:has(.md-reader-state[data-layout="paper"])) .markdown-body > :is(pre, .mermaid-wrapper, .mermaid) {
+  max-width: none;
+}
+
+/* Paper: a card on a darker surround. */
+html:has(.md-reader-state[data-layout="paper"]) {
+  background: var(--r-surround);
+}
+
+html:has(.md-reader-state[data-layout="paper"]) .markdown-body {
+  background: var(--r-paper);
+  margin: 2.5rem auto 4rem;
+  padding: 3.5rem 4rem 4.5rem;
+  border-radius: 6px;
+  box-shadow: var(--r-shadow);
+}
+
+@media (max-width: 760px) {
+  html:has(.md-reader-state[data-layout="paper"]) .markdown-body {
+    margin: 1rem auto 2rem;
+    padding: 2rem 1.5rem 3rem;
+  }
+}
+
+html ::selection {
+  background: color-mix(in srgb, var(--r-link) 28%, transparent);
+}
+
+/* ---------- Text ---------- */
+
+html .markdown-body > .md-reader-state + * {
+  margin-top: 0;
+}
+
+html .markdown-body p {
+  margin: 0 0 1em;
+}
+
+html .markdown-body :is(strong, b) {
+  font-weight: 650;
+}
+
+html .markdown-body a {
+  color: var(--r-link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  text-decoration-color: color-mix(in srgb, var(--r-link) 40%, transparent);
+}
+
+html .markdown-body a:hover {
+  text-decoration-color: currentColor;
+}
+
+html .markdown-body :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--r-display);
+  color: var(--r-heading);
+  font-weight: 650;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin: 2em 0 0.65em;
+  padding: 0;
+  border: 0;
+}
+
+html .markdown-body h1 {
+  font-size: 1.9em;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-top: 0;
+  padding-bottom: 0.35em;
+  border-bottom: 1px solid var(--r-rule);
+}
+
+html .markdown-body h2 {
+  font-size: 1.45em;
+  margin-top: 2.2em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--r-rule);
+}
+
+html .markdown-body h3 {
+  font-size: 1.2em;
+  margin-top: 1.9em;
+}
+
+html .markdown-body h4 {
+  font-size: 1.05em;
+  font-weight: 600;
+  margin-top: 1.7em;
+}
+
+html .markdown-body :is(h5, h6) {
+  font-size: 0.95em;
+  font-weight: 600;
+  color: var(--r-ink-muted);
+}
+
+html .markdown-body :is(ul, ol) {
+  margin: 0 0 1em;
+  padding-left: 1.6em;
+}
+
+html .markdown-body li {
+  margin: 0.3em 0;
+}
+
+html .markdown-body li > :is(ul, ol) {
+  margin: 0.3em 0 0;
+}
+
+html .markdown-body li > p {
+  margin-bottom: 0.5em;
+}
+
+html .markdown-body li::marker {
+  color: var(--r-ink-muted);
+}
+
+/* Task lists (checkboxes come from extension.js). */
+html .markdown-body li.md-reader-task-item {
+  list-style: none;
+}
+
+html .markdown-body input.md-reader-task {
+  appearance: none;
+  position: relative;
+  width: 0.95em;
+  height: 0.95em;
+  margin: 0 0.55em 0 -1.5em;
+  vertical-align: -0.12em;
+  border: 1.5px solid var(--r-ink-muted);
+  border-radius: 3px;
+  background: none;
+}
+
+html .markdown-body input.md-reader-task:checked {
+  background: var(--r-link);
+  border-color: var(--r-link);
+}
+
+html .markdown-body input.md-reader-task:checked::after {
+  content: "";
+  position: absolute;
+  left: 0.25em;
+  top: 0.05em;
+  width: 0.22em;
+  height: 0.48em;
+  border: solid var(--r-paper);
+  border-width: 0 0.13em 0.13em 0;
+  transform: rotate(45deg);
+}
+
+html .markdown-body blockquote {
+  margin: 1.4em 0;
+  padding: 0.1em 0 0.1em 1.1em;
+  border: 0;
+  border-left: 3px solid var(--r-quote-rule);
+  border-radius: 0;
+  background: none;
+  color: var(--r-ink-muted);
+}
+
+html .markdown-body blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+html .markdown-body hr {
+  height: 0;
+  border: 0;
+  border-bottom: 1px solid var(--r-rule);
+  margin: 2.5em 0;
+}
+
+html .markdown-body img {
+  max-width: 100%;
+  border-radius: 4px;
+}
+
+/* ---------- Code ---------- */
+
+html .markdown-body code {
+  font-family: var(--r-mono);
+  font-size: 0.86em;
+  line-height: inherit;
+}
+
+html .markdown-body :not(pre) > code {
+  background: var(--r-inline-code-bg);
+  padding: 0.12em 0.38em;
+  border-radius: 4px;
+}
+
+html body .markdown-body pre,
+html body.wordWrap .markdown-body pre {
+  font-size: var(--r-code-size);
+  line-height: 1.5;
+  margin: 0 0 1.25em;
+  padding: 1em 1.25em;
+  background: var(--r-code-bg);
+  border: 1px solid var(--r-code-border);
+  border-radius: 8px;
+  overflow-x: auto;
+  white-space: pre;
+  color-scheme: dark;
+}
+
+html .markdown-body pre code {
+  display: inline-block;
+  font-size: inherit;
+  line-height: inherit;
+  white-space: pre;
+  color: var(--hl-fg);
+  background: none;
+  padding: 0;
+}
+
+html .markdown-body .code-block-copy-button {
+  background: var(--r-code-bg);
+  border-color: rgba(255, 255, 255, 0.14);
+  color: var(--hl-comment);
+}
+
+/* Syntax colours (highlight.js classes). */
+html .hljs [class^="hljs-"] { color: inherit; }
+html .hljs :is(.hljs-comment, .hljs-quote) { color: var(--hl-comment); font-style: italic; }
+html .hljs :is(.hljs-doctag, .hljs-keyword, .hljs-formula) { color: var(--hl-keyword); }
+html .hljs :is(.hljs-section, .hljs-name, .hljs-selector-tag, .hljs-deletion, .hljs-subst, .hljs-tag) { color: var(--hl-red); }
+html .hljs .hljs-literal { color: var(--hl-cyan); }
+html .hljs :is(.hljs-string, .hljs-regexp, .hljs-addition, .hljs-attribute, .hljs-meta .hljs-string) { color: var(--hl-green); }
+html .hljs :is(.hljs-attr, .hljs-variable, .hljs-template-variable, .hljs-type, .hljs-selector-class, .hljs-selector-attr, .hljs-selector-pseudo, .hljs-number) { color: var(--hl-orange); }
+html .hljs :is(.hljs-symbol, .hljs-bullet, .hljs-link, .hljs-meta, .hljs-selector-id, .hljs-title) { color: var(--hl-blue); }
+html .hljs :is(.hljs-built_in, .hljs-title.class_, .hljs-class .hljs-title) { color: var(--hl-yellow); }
+html .hljs .hljs-emphasis { font-style: italic; }
+html .hljs .hljs-strong { font-weight: 700; }
+html .hljs .hljs-link { text-decoration: underline; }
+
+/* ---------- Tables ---------- */
+
+html .markdown-body .md-reader-table {
+  overflow-x: auto;
+  margin: 0 0 1.25em;
+}
+
+html .markdown-body table {
+  width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+  font-size: 0.94em;
+  line-height: 1.45;
+}
+
+html .markdown-body :is(th, td) {
+  padding: 0.55em 0.8em;
+  text-align: left;
+  vertical-align: top;
+  border: 0;
+}
+
+html .markdown-body th {
+  font-weight: 650;
+  color: var(--r-heading);
+  border-bottom: 1.5px solid var(--r-rule-strong);
+}
+
+html .markdown-body tbody tr:nth-child(even) {
+  background: var(--r-zebra);
+}
+
+/* ---------- Mermaid ---------- */
+
+/* A full-width frame around each diagram; the diagram keeps its natural size, centred. */
+html .markdown-body .mermaid-wrapper {
+  box-sizing: border-box;
+  margin: 0 0 1.25em;
+  padding: 1.25em;
+  border: 1px solid var(--r-rule);
+  border-radius: 8px;
+  background: var(--r-zebra);
+}
+
+html .markdown-body .mermaid-wrapper:focus-within {
+  border-color: var(--r-rule-strong);
+}
+
+html .markdown-body .mermaid {
+  margin: 0;
+  text-align: center;
+}
+
+/* The mermaid add-on colours diagrams for the VS Code theme; invert them when the reader mode disagrees. */
+html:has(body.vscode-dark):has(.md-reader-state[data-mode="light"]) .markdown-body .mermaid svg,
+html:has(body.vscode-light):has(.md-reader-state[data-mode="dark"]) .markdown-body .mermaid svg {
+  filter: invert(1) hue-rotate(180deg);
+}

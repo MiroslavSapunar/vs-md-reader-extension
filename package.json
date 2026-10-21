@@ -1,0 +1,47 @@
+{
+  "name": "md-reader",
+  "displayName": "Markdown Reader",
+  "description": "PDF-like reading styles for the built-in Markdown preview, with a reader-only light/dark and paper switch.",
+  "version": "0.1.0",
+  "publisher": "miroslav",
+  "private": true,
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "markdown.previewStyles": [
+      "./reader.css"
+    ],
+    "markdown.markdownItPlugins": true,
+    "commands": [
+      {
+        "command": "mdReader.toggleMode",
+        "title": "Toggle Light/Dark",
+        "category": "Markdown Reader"
+      },
+      {
+        "command": "mdReader.toggleLayout",
+        "title": "Toggle Paper Layout",
+        "category": "Markdown Reader"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "mdReader.toggleMode",
+        "key": "ctrl+alt+l",
+        "mac": "ctrl+cmd+l",
+        "when": "activeWebviewPanelId == 'markdown.preview' || editorLangId == 'markdown'"
+      },
+      {
+        "command": "mdReader.toggleLayout",
+        "key": "ctrl+alt+p",
+        "mac": "ctrl+cmd+p",
+        "when": "activeWebviewPanelId == 'markdown.preview' || editorLangId == 'markdown'"
+      }
+    ]
+  }
+}
