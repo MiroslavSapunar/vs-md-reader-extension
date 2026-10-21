@@ -67,7 +67,7 @@
   --r-size: 17px;
   --r-code-size: 14px;
   --r-leading: 1.6;
-  --r-measure: 72ch; /* column */
+  --r-measure: 80ch; /* column */
   --r-measure-paper: 64ch;
   /* Code blocks are dark in both modes. One Dark Pro. */
   --hl-fg: #abb2bf;
@@ -417,11 +417,10 @@ html .markdown-body tbody tr:nth-child(even) {
 
 /* ---------- Mermaid ---------- */
 
-/* A full-width frame around each diagram; the diagram keeps its natural size, centred. */
+/* A frame around each diagram. No padding or centring here: the built-in mermaid script
+   sizes the wrapper to the SVG and centres it itself. */
 html .markdown-body .mermaid-wrapper {
-  box-sizing: border-box;
   margin: 0 0 1.25em;
-  padding: 1.25em;
   border: 1px solid var(--r-rule);
   border-radius: 8px;
   background: var(--r-zebra);
@@ -433,7 +432,6 @@ html .markdown-body .mermaid-wrapper:focus-within {
 
 html .markdown-body .mermaid {
   margin: 0;
-  text-align: center;
 }
 
 /* The mermaid add-on colours diagrams for the VS Code theme; invert them when the reader mode disagrees. */
