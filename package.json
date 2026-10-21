@@ -33,14 +33,14 @@
       {
         "command": "mdReader.toggleMode",
         "key": "ctrl+alt+l",
-        "mac": "ctrl+cmd+l",
-        "when": "activeWebviewPanelId == 'markdown.preview' || editorLangId == 'markdown'"
+        "mac": "alt+cmd+l",
+        "when": "activeWebviewPanelId == 'markdown.preview' || activeCustomEditorId == 'vscode.markdown.preview.editor'"
       },
       {
         "command": "mdReader.toggleLayout",
         "key": "ctrl+alt+p",
-        "mac": "ctrl+cmd+p",
-        "when": "activeWebviewPanelId == 'markdown.preview' || editorLangId == 'markdown'"
+        "mac": "alt+cmd+p",
+        "when": "activeWebviewPanelId == 'markdown.preview' || activeCustomEditorId == 'vscode.markdown.preview.editor'"
       }
     ]
   }
