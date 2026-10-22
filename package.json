@@ -17,6 +17,18 @@
       "./reader.css"
     ],
     "markdown.markdownItPlugins": true,
+    "configuration": {
+      "title": "Markdown Reader",
+      "properties": {
+        "mdReader.columnWidth": {
+          "type": "number",
+          "default": 80,
+          "minimum": 40,
+          "maximum": 200,
+          "markdownDescription": "Maximum line length of the column layout, in characters (CSS `ch`). The paper layout keeps its own width."
+        }
+      }
+    },
     "commands": [
       {
         "command": "mdReader.toggleMode",

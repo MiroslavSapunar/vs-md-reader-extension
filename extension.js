@@ -9,6 +9,10 @@ function activate(context) {
   const state = context.globalState;
   const mode = () => state.get(MODE, 'auto');
   const layout = () => state.get(LAYOUT, 'column');
+  const columnWidth = () => {
+    const value = Number(vscode.workspace.getConfiguration('mdReader').get('columnWidth', 80));
+    return Number.isFinite(value) ? Math.min(200, Math.max(40, value)) : 80;
+  };
 
   const themeIsDark = () => {
     const kind = vscode.window.activeColorTheme.kind;
@@ -29,15 +33,22 @@ function activate(context) {
       await state.update(LAYOUT, layout() === 'paper' ? 'column' : 'paper');
       await refresh();
     }),
+    vscode.workspace.onDidChangeConfiguration((event) => {
+      if (event.affectsConfiguration('mdReader.columnWidth')) {
+        refresh();
+      }
+    }),
   );
 
   return {
     /** @param {any} md markdown-it instance of the built-in preview */
     extendMarkdownIt(md) {
       // Tokens are cached per document version, but render() runs on every refresh,
-      // so the state marker is injected here rather than in a core rule.
+      // so the state marker and the column width are injected here rather than in a core rule.
+      // The marker stays last so `.md-reader-state + *` in reader.css is the first real block.
       const render = md.renderer.render.bind(md.renderer);
       md.renderer.render = (tokens, options, env) =>
+        `<style>html:root { --r-measure: ${columnWidth()}ch; }</style>` +
         `<div class="md-reader-state" data-mode="${mode()}" data-layout="${layout()}" hidden></div>` +
         render(tokens, options, env);
 

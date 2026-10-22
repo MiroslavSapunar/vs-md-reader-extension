@@ -10,7 +10,7 @@ A local VS Code extension that restyles the built-in Markdown preview (⇧⌘V, 
 | Toggle Paper Layout | ⌥⌘P |
 
 - Keys work while the preview tab is focused. Light/Dark changes only the preview. Toggling back to the editor theme's own mode returns to following the VS Code theme. The choice persists.
-- Column (default): a ~80ch column; wide tables and long code lines scroll sideways inside it. Paper: a 64ch page on a darker surround.
+- Column (default): an 80ch column, set by the `mdReader.columnWidth` setting; wide tables and long code lines scroll sideways inside it. Paper: a 64ch page on a darker surround.
 
 ## Install / reinstall
 

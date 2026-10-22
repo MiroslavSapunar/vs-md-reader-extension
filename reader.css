@@ -67,7 +67,7 @@
   --r-size: 17px;
   --r-code-size: 14px;
   --r-leading: 1.6;
-  --r-measure: 80ch; /* column */
+  --r-measure: 80ch; /* column; extension.js overrides it with the mdReader.columnWidth setting */
   --r-measure-paper: 64ch;
   /* Code blocks are dark in both modes. One Dark Pro. */
   --hl-fg: #abb2bf;
